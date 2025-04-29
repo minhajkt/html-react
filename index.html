@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script
+      src="https://unpkg.com/react@18/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+  </head>
+
+  <body>
+    <!-- <h1>This is html</h1> -->
+    <div id="navbar"></div>
+    <!-- <h1>This is html</h1> -->
+
+    <script type="text/babel">
+      function Table() {
+        const initialTasks = [
+          "Onboarding Call",
+          "Google Seach Console Access",
+          "Google Analytics Access",
+          "Website Access",
+          "Technical Audit",
+          "Anchor text and Semantic Analysis",
+          "Competitor Analysis",
+          "Anchor Text/ URL Mapping",
+          "Google Data Studio Report + Local Reporting Suite",
+          "Site Level Optimization",
+          "On Page Optimization",
+          "Content Creation",
+          "Content Publishing",
+          "Premium Press Release",
+          "Authority Niche Placements",
+          "Review Management",
+          "Index Links",
+          "Video Recap",
+        ];
+
+        const [data, setData] = React.useState(
+          initialTasks.map((task) => ({
+            task,
+            details: ["", "", "", "", "", ""],
+          }))
+        );
+
+        const handleTaskChange = (taskIndex, value) => {
+            setData(prev => {
+                const updated = [...prev]
+                updated[taskIndex].task = value
+                return updated
+            })
+        }
+
+        const handleDetailChange = (taskIndex, detailIndex, value) => {
+          setData((prev) => {
+            const updated = [...prev];
+            updated[taskIndex].details[detailIndex] = value;
+            return updated;
+          });
+        };
+
+        
+
+
+        return (
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th className='head'>MONTH 1</th>
+                  <th colSpan="6"></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {data.map((item, taskIndex) => (
+                  <tr key={taskIndex}>
+                    <td className='tasks'>{item.task}</td>
+                    {item.details.map((detail, detailIndex) => (
+                      <td key={detailIndex}>
+                        <input
+                          type="text"
+                          value={detail}
+                          onChange={(e) =>
+                            handleDetailChange(taskIndex, detailIndex, e.target.value)
+                          }
+                        />
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        );
+      }
+
+      const domNode = document.getElementById("navbar");
+      const root = ReactDOM.createRoot(domNode);
+      root.render(<Table />);
+    </script>
+  </body>
+</html>
